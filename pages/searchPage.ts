@@ -13,7 +13,7 @@ export class SearchPage {
   }
 
   async filterByColor(color: string): Promise<void> {
-    await searchLocators.colorCheckbox(this.page, color).check();
+    await searchLocators.colorCheckbox(this.page, color).click();
   }
 
   async sortByLowestPrice(): Promise<void> {
