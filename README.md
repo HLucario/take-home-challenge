@@ -2,6 +2,8 @@
 
 [![Playwright Tests](https://github.com/HLucario/take-home-challenge/actions/workflows/test.yml/badge.svg)](https://github.com/HLucario/take-home-challenge/actions/workflows/test.yml)
 
+Latest passing run: [Playwright Tests #3](https://github.com/HLucario/take-home-challenge/actions/runs/39273882437)
+
 A TypeScript end-to-end test framework built with Playwright. The suite covers product search, product-data auditing, accessibility, performance, and visual regression across Chromium, Firefox, and WebKit.
 
 ## Prerequisites
