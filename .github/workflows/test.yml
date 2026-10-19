@@ -1,0 +1,66 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Typecheck and browser tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Set up Java for Allure
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Run Playwright tests
+        id: playwright
+        run: npm run test:ci
+
+      - name: Generate Allure report
+        if: ${{ always() && steps.playwright.outcome != 'skipped' }}
+        run: npm run report:allure
+
+      - name: Upload test reports and artifacts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-reports
+          path: |
+            reports/html-report/
+            reports/allure-report/
+            reports/allure-results/
+            reports/test-results/
+            reports/screenshots/
+          if-no-files-found: warn
+          retention-days: 30

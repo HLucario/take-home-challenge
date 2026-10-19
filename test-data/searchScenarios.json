@@ -1,0 +1,19 @@
+{
+  "searchTerms": [
+    "playstation 5",
+    "xbox series x",
+    "nintendo switch"
+  ],
+  "performanceScenarios": [
+    { "searchTerm": "playstation 5", "secondsToLoad": 5 },
+    { "searchTerm": "xbox series x", "secondsToLoad": 5 },
+    { "searchTerm": "nintendo switch", "secondsToLoad": 5 }
+  ],
+  "colorFilter": "Blanco",
+  "productAudit": {
+    "sampleSize": 5,
+    "minimumVisibleProducts": 1,
+    "minimumMatches": 3,
+    "priceTolerance": 1
+  }
+}

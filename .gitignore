@@ -1,0 +1,18 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+.env
+.env.*
+!.env.example
+/allure-results/
+/allure-report/
+/reports/test-results/
+/reports/html-report/
+/reports/allure-results/
+/reports/allure-report/
+/reports/screenshots/*.png
