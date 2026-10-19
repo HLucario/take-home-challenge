@@ -7,6 +7,7 @@ import { baseUrl } from './config/environment.js';
 export default defineConfig({
   testDir: './tests',
   outputDir: 'reports/test-results',
+  snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

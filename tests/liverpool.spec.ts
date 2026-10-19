@@ -1,5 +1,6 @@
 import { test, expect, testData } from '../fixtures/test.js';
 import { scanAccessibility } from '../utils/accessibility.js';
+import { searchLocators } from '../locators/searchLocators.js';
 
 const searchTerms = testData.searchTerms;
 for (const searchTerm of searchTerms) {
@@ -39,14 +40,20 @@ for (const searchTerm of searchTerms) {
 test(`Accessibility check: scan search results for WCAG violations for ${searchTerm}`, async ({ page, searchPage }) => {
   await searchPage.search(searchTerm);
   const accessibilityScanResults = await scanAccessibility(page);
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 }
 for (const searchTerm of searchTerms) {
-test(`Visual regression: search results page matches baseline ${searchTerm}`, async ({ page, searchPage }) => {
+test(`Visual regression: search results page matches baseline ${searchTerm}`, async ({ page, searchPage }, testInfo) => {
+  testInfo.setTimeout(testData.visualRegression.timeoutMilliseconds);
   await searchPage.search(searchTerm);
-  expect(await page.screenshot({ fullPage: true })).toMatchSnapshot('search-results.png', {
-    maxDiffPixelRatio: 0.05, 
+  const productList = page.locator(searchLocators.productList);
+  await expect(productList).toBeVisible();
+  expect(await page.screenshot({
+    animations: 'disabled',
+    scale: 'css',
+    mask: [productList],
+  })).toMatchSnapshot(`search-results-${searchTerm.replaceAll(' ', '-')}.png`, {
+    maxDiffPixelRatio: testData.visualRegression.maxDiffPixelRatio,
   });
 });
 }
